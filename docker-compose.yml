@@ -9,6 +9,8 @@ services:
       MYSQL_PASSWORD: anhlacho
     ports:
       - "3307:3306"
+    volumes:
+      - ./dist/mysql_data:/var/lib/mysql
   spring-app:
     build: .
     depends_on:
