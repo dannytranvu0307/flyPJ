@@ -1,12 +1,12 @@
 version: '3'
 services:
   mysql:
-    image: mysql:8.3.0
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: my_database
-      MYSQL_USER: app_user
-      MYSQL_PASSWORD: app_password
+      MYSQL_DATABASE: fly_project
+      MYSQL_USER: vupilot
+      MYSQL_PASSWORD: anhlacho
     ports:
       - "3307:3306"
   spring-app:
@@ -14,9 +14,9 @@ services:
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/my_database
-      SPRING_DATASOURCE_USERNAME: app_user
-      SPRING_DATASOURCE_PASSWORD: app_password
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/fly_project
+      SPRING_DATASOURCE_USERNAME: vupilot
+      SPRING_DATASOURCE_PASSWORD: anhlacho
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     ports:
