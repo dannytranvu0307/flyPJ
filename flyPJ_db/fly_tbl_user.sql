@@ -35,8 +35,6 @@ CREATE TABLE `tbl_user` (
   `DELETE_FLAG` tinyint DEFAULT '0',
   PRIMARY KEY (`ID`),
   UNIQUE KEY `EMAIL` (`EMAIL`),
-  KEY `fk_user_department_idx` (`DEPARTMENT_ID`),
-  CONSTRAINT `fk_user_department` FOREIGN KEY (`DEPARTMENT_ID`) REFERENCES `tbl_department` (`ID`),
   CONSTRAINT `tbl_user_chk_1` CHECK (((length(`FULL_NAME`) >= 6) and (length(`FULL_NAME`) <= 64))),
   CONSTRAINT `tbl_user_chk_2` CHECK (((length(`EMAIL`) >= 6) and (length(`EMAIL`) <= 256)))
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -48,7 +46,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'TEST ADMIN','test1234@vti.com.vn','$2a$10$i.ZOgCKPHvVt4sfUXxb7H.1A.9A/n0ewF0ifwgaHMltjkhffJufuq',2,NULL,1,'2023-05-30 02:42:17','2023-05-31 06:34:31',0),(15,'TRAN VAN CHIEN','chien.tranvan@vti.com.vn','$2a$10$FmqcBsohZ3/HrXQstgZBouJ76GxnzhaG4sywA.gFI5RiYHZRv3Rc.',13,NULL,1,'2023-05-31 02:18:24','2023-05-31 02:18:35',0);
+INSERT INTO `tbl_user` VALUES (1,'vudeptrai','test@gmail.com','$2a$10$i.ZOgCKPHvVt4sfUXxb7H.1A.9A/n0ewF0ifwgaHMltjkhffJufuq',"https://hips.hearstapps.com/hmg-prod/images/index-avatar3-1672251913.jpg?crop=0.6666666666666666xw:1xh;center,top&resize=1200:*",NULL,2,'2023-05-30 02:42:17','2023-05-31 06:34:31',0);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
