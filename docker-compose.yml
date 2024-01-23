@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   mysql:
     image: mysql:8.0
@@ -10,16 +10,34 @@ services:
     ports:
       - "3307:3306"
     volumes:
+      - ./flyPJ_db:/docker-entrypoint-initdb.d
       - ./dist/mysql_data:/var/lib/mysql
-  spring-app:
-    build: .
-    depends_on:
-      - mysql
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/fly_project
-      SPRING_DATASOURCE_USERNAME: vupilot
-      SPRING_DATASOURCE_PASSWORD: anhlacho
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-    ports:
-      - "8080:8080"
+#  spring-app:
+#    build: .
+#    depends_on:
+#      - mysql
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/fly_project
+#      SPRING_DATASOURCE_USERNAME: vupilot
+#      SPRING_DATASOURCE_PASSWORD: anhlacho
+#      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - backend
+#
+#services:
+#  mysql:
+#    image: mysql
+#    restart: always
+#    container_name: db-mysql
+#    ports:
+#      - 3307:3306
+#    environment:
+#      MYSQL_DATABASE: path
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_USER: testuser
+#      MYSQL_PASSWORD: testpassword
+#    volumes:
+#      - ./flyPJ_db:/docker-entrypoint-initdb.d
