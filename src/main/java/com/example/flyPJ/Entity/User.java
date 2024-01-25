@@ -1,58 +1,86 @@
 package com.example.flyPJ.Entity;
 
+import java.time.Instant;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "tbl_user")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "ID")
+    private Integer id;
 
+    @Column(name = "`FULL_NAME`")
+    private String fullName;
+
+    @Column(name = "`EMAIL`")
     private String email;
+
+    @Column(name = "`PASSWORD`")
     private String password;
-    private String name;
 
-    public User() {
-        // Default constructor
+    @Column(name = "`AVATAR_LINK`")
+    private String avatar_link ;
+
+    @OneToOne(mappedBy = "user")
+    private RefreshToken refreshToken;
+
+    @Column(name = "`STATUS`")
+    private Short status;
+
+    @Column(name = "`VERIFY_CODE`")
+    private String verifyCode;
+
+    @Column(name = "`CREATE_DT`")
+    private Instant createDt;
+
+    @Column(name = "`UPDATE_DT`")
+    private Instant updateDt;
+
+    @Column(name = "DELETE_FLAG")
+    private Boolean deleteFlag;
+
+    public User(Integer id) {
+        super();
+        this.id = id;
     }
 
-    public User(String email, String password, String name) {
+    public User(String fullName, String email, String password, String avatar_link) {
+        super();
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.name = name;
+        this.avatar_link = avatar_link;
     }
 
-    public Long getId() {
-        return id;
+    @PreUpdate
+    public void preUpdate() {
+        this.updateDt = Instant.now();
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    // Getters and setters
 }
