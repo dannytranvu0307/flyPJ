@@ -1,11 +1,16 @@
 package com.example.flyPJ.Service;
 
-import com.example.flyPJ.Payload.UserPayload;
-
-import java.util.List;
-import java.util.Optional;
+import com.example.flyPJ.Entity.User;
+import com.example.flyPJ.exception.FlyException;
 
 public interface UserService {
+    User getUser() throws FlyException;
 
+    void activeUser() throws FlyException;
 
+    User updateUser() throws FlyException;
+
+    void sendResetPasswordViaEmail() throws FlyException;
+
+    void resetPassword() throws FlyException ;
 }
