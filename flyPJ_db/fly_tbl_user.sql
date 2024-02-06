@@ -28,6 +28,7 @@ CREATE TABLE `tbl_user` (
   `EMAIL` varchar(256) NOT NULL,
   `PASSWORD` varchar(256) NOT NULL,
   `AVATAR_LINK` varchar(256) DEFAULT NULL,
+  `VERIFY_CODE` varchar(256) DEFAULT NULL,
   `STATUS` tinyint NOT NULL DEFAULT '0',
   `CREATE_DT` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `UPDATE_DT` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -45,7 +46,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'vudeptrai','test@gmail.com','$2a$10$i.ZOgCKPHvVt4sfUXxb7H.1A.9A/n0ewF0ifwgaHMltjkhffJufuq',"https://hips.hearstapps.com/hmg-prod/images/index-avatar3-1672251913.jpg?crop=0.6666666666666666xw:1xh;center,top&resize=1200:*",2,'2023-05-30 02:42:17','2023-05-31 06:34:31',0);
+INSERT INTO `tbl_user` VALUES (1,'vudeptrai','test@gmail.com','$2a$10$i.ZOgCKPHvVt4sfUXxb7H.1A.9A/n0ewF0ifwgaHMltjkhffJufuq',"https://hips.hearstapps.com/hmg-prod/images/index-avatar3-1672251913.jpg?crop=0.6666666666666666xw:1xh;center,top&resize=1200:*","jasbdasbjkdbasjkdbasjkbduasbdasb",2,'2023-05-30 02:42:17','2023-05-31 06:34:31',0);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

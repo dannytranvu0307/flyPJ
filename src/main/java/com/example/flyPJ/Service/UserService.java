@@ -1,9 +1,10 @@
 package com.example.flyPJ.Service;
 
 import com.example.flyPJ.Entity.User;
-import com.example.flyPJ.exception.FlyException;
+import com.example.flyPJ.Exception.FlyException;
 
 public interface UserService {
+
     User getUser() throws FlyException;
 
     void activeUser() throws FlyException;

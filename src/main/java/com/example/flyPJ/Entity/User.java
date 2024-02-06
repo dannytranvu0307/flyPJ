@@ -1,23 +1,15 @@
 package com.example.flyPJ.Entity;
 
 import java.time.Instant;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -70,12 +62,11 @@ public class User {
         this.id = id;
     }
 
-    public User(String fullName, String email, String password, String avatar_link) {
+    public User(String fullName, String email, String password) {
         super();
         this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.avatar_link = avatar_link;
     }
 
     @PreUpdate
