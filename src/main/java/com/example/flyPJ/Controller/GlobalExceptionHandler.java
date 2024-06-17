@@ -2,6 +2,7 @@ package com.example.flyPJ.Controller;
 
 import com.example.flyPJ.DTO.ResponseData;
 import com.example.flyPJ.Exception.FlyException;
+import com.example.flyPJ.Exception.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -43,16 +44,16 @@ public class GlobalExceptionHandler {
 //    }
 //
 //
-//    @ExceptionHandler(UserException.class)
-//    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-//    public ResponseData userOfExceptionHandler(UserException ex) {
-//        return ResponseData.builder()
-//                .code(ex.getCode())
-//                .message(ex.getMessage())
-//                .type(ResponseType.ERROR)
-//                .build();
-//    }
-//
+    @ExceptionHandler(UserException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseData userOfExceptionHandler(UserException ex) {
+        return ResponseData.builder()
+                .code(ex.getCode())
+                .message(ex.getMessage())
+                .type(ResponseData.ResponseType.ERROR)
+                .build();
+    }
+
 //
 //    @ExceptionHandler(NotFoundException.class)
 //    @ResponseStatus(value = HttpStatus.NOT_FOUND)

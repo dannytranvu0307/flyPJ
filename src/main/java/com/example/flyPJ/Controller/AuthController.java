@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/fly")
+@RequestMapping("/auth/")
 @Slf4j
 public class AuthController {
 //    @Autowired
@@ -45,7 +45,10 @@ public class AuthController {
 //
 //    @Autowired
 //    private CookieUtils cookieUtils;
-
+    @GetMapping("/test")
+    public String test(){
+        return "messeage:hello world";
+    }
 
 
     @PostMapping("/register")

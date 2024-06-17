@@ -53,7 +53,7 @@ public class EmailServiceImpl implements EmailService {
                 + "ご不明点は下記連絡先までお問い合わせください。\r\n"
                 + "開発部 \r\n"
                 + "新人2023 \r\n"
-                + "Email: vti.fresher.042023@vti.com.vn");
+                + "Email: pilot@vtv.com.vn");
 
         mailSender.send(message);
         log.info("Account activity email sent to: {}", email);
@@ -89,7 +89,7 @@ public class EmailServiceImpl implements EmailService {
                 + "ご不明点は下記連絡先までお問い合わせください。\r\n"
                 + "開発部　\r\n"
                 + "新人2023　\r\n"
-                + "Email: vti.fresher.042023@vti.com.vn");
+                + "Email: pilot@vtv.com.vn");
 
         mailSender.send(message);
         log.info("Reset password email sent to: {}", email);

@@ -2,14 +2,7 @@ package com.example.flyPJ.Entity;
 
 import java.time.Instant;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,7 +41,7 @@ public class User {
     @Column(name = "`VERIFY_CODE`")
     private String verifyCode;
 
-    @Column(name = "`CREATE_DT`")
+    @Column(name = "`CREATE_DT`", updatable = false)
     private Instant createDt;
 
     @Column(name = "`UPDATE_DT`")
@@ -68,7 +61,11 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
+//    @PrePersist
+//    public void prePersist() {
+//        Instant now = Instant.now();
+//        this.createDt = now;
+//    }
     @PreUpdate
     public void preUpdate() {
         this.updateDt = Instant.now();

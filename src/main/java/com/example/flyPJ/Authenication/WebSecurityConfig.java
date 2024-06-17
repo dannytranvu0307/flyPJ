@@ -45,7 +45,6 @@ public class WebSecurityConfig {
 
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
-
         return authProvider;
     }
 
@@ -63,9 +62,9 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-                .antMatchers("/api/v1/auth/**").permitAll().antMatchers("/api/v1/users/active").permitAll()
+                .antMatchers("/auth/**").permitAll().antMatchers("/api/v1/users/active").permitAll()
                 .antMatchers("/api/v1/users/emails").permitAll().antMatchers("/api/v1/users/reset-password").permitAll()
-                .antMatchers("/api/fly/register").permitAll().anyRequest().authenticated();
+                .antMatchers("/api/fly/test").permitAll().anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
 
@@ -77,7 +76,8 @@ public class WebSecurityConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(crosUrls);
+//        config.setAllowedOrigins(crosUrls);
+        config.addAllowedOriginPattern("*");
         config.setAllowCredentials(true);
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");

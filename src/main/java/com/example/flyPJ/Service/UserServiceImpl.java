@@ -14,15 +14,18 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
+    private final Integer USER_CACHE_DURATION = 30;
+    private final String RST_PWD_PREFIX = "RST_PWD:";
     @Autowired
     private UserRepository userRepository;
-//    @Autowired
-//    private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
     @Autowired
     private EmailService emailService;
 
@@ -34,20 +37,19 @@ public class UserServiceImpl implements UserService {
 
 
     public User saveUser(RegisterPayload payload) throws FlyException {
-//        if (isActiveUserAccount(payload.getEmail())) {
-//            log.info("{} is trying to register ", payload.getEmail());
-//            throw new UserException("REGIS_ER_01", "This email has already been used");
-//        }
-//        if (isExistsUserOnCache(payload.getEmail())) {
-//            log.info("{} is trying to register", payload.getEmail());
-//            throw new UserException("API002_ER2", "Active email already sent to " + payload.getEmail());
-//        }
+        if (isActiveUserAccount(payload.getEmail())) {
+            log.info("{} is trying to register ", payload.getEmail());
+            throw new UserException("REGIS_ER_01", "This email has already been used");
+        }
+        if (isExistsUserOnCache(payload.getEmail())) {
+            log.info("{} is trying to register", payload.getEmail());
+            throw new UserException("API002_ER2", "Active email already sent to " + payload.getEmail());
+        }
         User preActiveUser = saveNewUser(payload);
         if (preActiveUser != null) {
-//            restoreRegisterUser(preActiveUser);
+            restoreRegisterUser(preActiveUser);
             emailService.sendRegistrationUserConfirm(payload.getEmail(), preActiveUser.getVerifyCode());
         }
-        System.out.print(payload);
         return preActiveUser;
     }
 
@@ -81,14 +83,13 @@ public class UserServiceImpl implements UserService {
 
     }
 
-//    private boolean isExistsUserOnCache(String email) {
-//        return redisTemplate.hasKey(email);
-//    }
+    private boolean isExistsUserOnCache(String email) {
+        return redisTemplate.hasKey(email);
+    }
     private User saveNewUser(RegisterPayload payload) {
         User user = new User(payload.getFullName(), payload.getEmail(), encoder.encode(payload.getPassword()));
         user.setStatus((short) 0);
         String tokenActive = jwtUtils.generateTokenToActiveUser(payload.getEmail());
-//        String tokenActive = "abdjkabdjabdjkabnasandkahdkankdankdankdanklanskdjkdnkas" ;
         user.setVerifyCode(tokenActive);
         user.setDeleteFlag(false);
         userRepository.save(user) ;
@@ -97,9 +98,10 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-//    private void restoreRegisterUser(User user) {
-//        redisTemplate.opsForValue().set(user.getEmail(), null, Duration.ofMinutes(USER_CACHE_DURATION));
-//        redisTemplate.opsForValue().set(user.getVerifyCode(), user, Duration.ofMinutes(USER_CACHE_DURATION));
-//    }
+    private void restoreRegisterUser(User user) {
+        redisTemplate.opsForValue().set(user.getEmail(), null, Duration.ofMinutes(USER_CACHE_DURATION));
+        redisTemplate.opsForValue().set(user.getVerifyCode(), user, Duration.ofMinutes(USER_CACHE_DURATION));
+    }
+
 
 }
