@@ -11,10 +11,12 @@ public class RegisterPayload {
     private String fullName;
 
     @NotBlank
+    @Size(min = 16, max = 128)
     private String email;
 
     @NotBlank
     @Size(min = 8, max = 64)
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).*$")
     private String password;
 
     public RegisterPayload() {

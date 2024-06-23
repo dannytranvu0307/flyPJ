@@ -19,9 +19,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     void deleteById(String userId);
 
-    @Query("select count(u) from User u where u.email = ?1 and u.status = 2 ")
+    @Query("select count(u) from User u where u.email = ?1 and (u.status = 1 or u.status = 2)")
     Long findActiveUserByEmail(String email);
-
     Boolean existsByEmail(String email);
     @Modifying
     User save(User user);
