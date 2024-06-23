@@ -7,7 +7,7 @@ public interface UserService {
 
     User getUser() throws FlyException;
 
-    void activeUser() throws FlyException;
+    void activeUser(String token) throws FlyException;
 
     User updateUser() throws FlyException;
 

@@ -12,7 +12,7 @@
 	<artifactId>flyPJ-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>flyPJ</name>
-	<description>Transportation expense settlement</description>
+	<description> </description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.5</spring-cloud.version>
@@ -34,6 +34,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

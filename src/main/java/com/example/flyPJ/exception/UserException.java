@@ -1,5 +1,5 @@
 package com.example.flyPJ.Exception;
-
+import com.example.flyPJ.Exception.FlyException;
 public class UserException extends FlyException {
     private static final long serialVersionUID = 1L;
 

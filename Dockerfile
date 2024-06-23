@@ -15,7 +15,7 @@ FROM openjdk:11-jre-slim
 
 WORKDIR /app
 
-ARG JAR_FILE=/app/target/flyPJ-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=/app/target/flyPJ-backend-0.0.1-SNAPSHOT.jar
 
 COPY --from=build ${JAR_FILE} ./app.jar
 

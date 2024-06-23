@@ -1,11 +1,29 @@
 package com.example.flyPJ.Controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.flyPJ.DTO.ResponseData;
+import com.example.flyPJ.Payload.UserActiveTokenPayload;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.example.flyPJ.Service.UserServiceImpl;
+
+import javax.validation.Valid;
+import com.example.flyPJ.Exception.FlyException;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    private UserServiceImpl userService;
+    @PostMapping("/active")
+    public ResponseEntity<?> activeUser(@Valid @RequestBody UserActiveTokenPayload payload) throws FlyException {
+        userService.activeUser(payload.getVerifyCode());
+        return ResponseEntity.ok().body(
+                ResponseData.builder()
+                        .type(ResponseData.ResponseType.INFO)
+                        .code("")
+                        .message("Account verify successfully")
+                        .build());
+    }
 }

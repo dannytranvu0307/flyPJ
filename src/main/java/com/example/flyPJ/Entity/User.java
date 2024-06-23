@@ -41,8 +41,8 @@ public class User {
     @Column(name = "`VERIFY_CODE`")
     private String verifyCode;
 
-    @Column(name = "`CREATE_DT`", updatable = false)
-    private Instant createDt;
+    @Column(name = "`CREATE_DT`")
+    private Instant createDt ;
 
     @Column(name = "`UPDATE_DT`")
     private Instant updateDt;
@@ -61,11 +61,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
-//    @PrePersist
-//    public void prePersist() {
-//        Instant now = Instant.now();
-//        this.createDt = now;
-//    }
     @PreUpdate
     public void preUpdate() {
         this.updateDt = Instant.now();
