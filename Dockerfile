@@ -1,22 +1,24 @@
+# Sử dụng hình ảnh Maven chính thức của Apache để xây dựng ứng dụng
+FROM maven:3.8.6-openjdk-17 AS build
 
-FROM maven:3.8.3-openjdk-11-slim AS build
-
+# Thiết lập thư mục làm việc trong container
 WORKDIR /app
 
+# Sao chép các tệp POM và mã nguồn vào container
 COPY pom.xml .
-
-RUN mvn dependency:go-offline
-
 COPY src ./src
 
-RUN mvn package -DskipTests
+# Biên dịch và đóng gói ứng dụng
+RUN mvn clean package -DskipTests
 
-FROM openjdk:11-jre-slim
+# Sử dụng hình ảnh JDK 17 chính thức của OpenJDK làm nền tảng
+FROM openjdk:17-jdk-slim
 
+# Thiết lập thư mục làm việc trong container
 WORKDIR /app
 
-ARG JAR_FILE=/app/target/flyPJ-0.0.1-SNAPSHOT.jar
+# Sao chép file JAR từ giai đoạn build sang container
+COPY --from=build /app/target/myapp-0.0.1-SNAPSHOT.jar /app/myapp.jar
 
-COPY --from=build ${JAR_FILE} ./app.jar
-
-CMD ["java", "-jar", "app.jar"]
+# Cấu hình điểm vào cho container
+ENTRYPOINT ["java", "-jar", "/app/myapp.jar"]
