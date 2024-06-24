@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CookieUtils {
 
-//    @Value("${fly.app.accessCookieExpiration}")
-//    private int accessCookieExpiration;
-//
-//    @Value("${fly.app.refreshCookieExpiration}")
-//    private int refreshCookieExpiration;
+    @Value("${fly.app.accessCookieExpiration}")
+    private int accessCookieExpiration;
+
+    @Value("${fly.app.refreshCookieExpiration}")
+    private int refreshCookieExpiration;
 
     public void createCookie(HttpServletResponse response, String name, String value, int maxAge, boolean httpOnly,
                              boolean secure, String path) {
@@ -42,11 +42,11 @@ public class CookieUtils {
     }
 
     public void createAccessTokenCookie(HttpServletResponse response, String accessToken) {
-        createCookie(response, "accessToken", accessToken, 7200, true, false, "/");
+        createCookie(response, "accessToken", accessToken, accessCookieExpiration, true, false, "/");
     }
 
     public void createRefreshTokenCookie(HttpServletResponse response, String refreshToken) {
-        createCookie(response, "refreshToken", refreshToken, 7200, true, false, "/");
+        createCookie(response, "refreshToken", refreshToken, refreshCookieExpiration, true, false, "/");
     }
     public String getRefreshTokenFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();

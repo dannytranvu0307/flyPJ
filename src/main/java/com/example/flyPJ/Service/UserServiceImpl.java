@@ -7,6 +7,7 @@ import com.example.flyPJ.Payload.RegisterPayload;
 import com.example.flyPJ.Repository.UserRepository;
 import com.example.flyPJ.Service.UserService;
 import com.example.flyPJ.Exception.FlyException;
+import com.example.flyPJ.exception.AuthenticationFailedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.Instant;
 
 
 @Service
@@ -58,8 +60,22 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+
+
     @Override
-    public void activeUser()  {
+    public void activeUser(String token) throws AuthenticationFailedException {
+
+        if (!redisTemplate.hasKey(token)) {
+            throw new AuthenticationFailedException("02", "Verify code has expired");
+        }
+        User user = (User) redisTemplate.opsForValue().get(token);
+        user.setCreateDt(Instant.now());
+        user.setVerifyCode(null);
+        user.setStatus((short) 1);
+        userRepository.save(user);
+        clearCacheAfterActive(user, token);
+
+        log.info("User {} of account is active", user.getFullName());
 
     }
 
@@ -103,5 +119,9 @@ public class UserServiceImpl implements UserService {
         redisTemplate.opsForValue().set(user.getVerifyCode(), user, Duration.ofMinutes(USER_CACHE_DURATION));
     }
 
+    private void clearCacheAfterActive(User user, String token) {
+        redisTemplate.delete(user.getEmail());
+        redisTemplate.delete(token);
+    }
 
 }

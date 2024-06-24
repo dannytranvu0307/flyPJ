@@ -15,6 +15,7 @@ services:
       - ./dist/mysql_data:/var/lib/mysql
     networks:
       - backend
+<<<<<<< HEAD
   app:
     build: .
     container_name: fly-backend
@@ -26,6 +27,19 @@ services:
       - 8080:8080
     networks:
       - backend
+=======
+  app:
+    build: .
+    container_name: fly-backend
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+>>>>>>> 8daf63a76f947b2e5160a5073bbf5ca8a6475ddd
   redis:
     image: redis:7.0
     container_name: fly-redis
@@ -44,4 +58,3 @@ volumes:
   mysql-fly-data:
   mysql-config:
   fly:
-
