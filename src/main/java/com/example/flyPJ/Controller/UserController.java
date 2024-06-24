@@ -26,4 +26,9 @@ public class UserController {
                         .message("Account verify successfully")
                         .build());
     }
+    @GetMapping("/hello")
+    public String hello(){
+        return "hello";
+
+    }
 }

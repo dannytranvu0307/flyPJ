@@ -18,7 +18,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Sao chép file JAR từ giai đoạn build sang container
-COPY --from=build /app/target/myapp-0.0.1-SNAPSHOT.jar /app/myapp.jar
+COPY --from=build /app/target/flyPJ-backend-0.0.1-SNAPSHOT.jar /app/flyPJ-backend.jar
 
 # Cấu hình điểm vào cho container
-ENTRYPOINT ["java", "-jar", "/app/myapp.jar"]
+ENTRYPOINT ["java", "-jar", "/app/flyPJ-backend.jar"]
